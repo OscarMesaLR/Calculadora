@@ -1,0 +1,102 @@
+from tkinter import *
+import customtkinter
+
+customtkinter.set_appearance_mode("dark")
+customtkinter.set_default_color_theme("blue")
+
+ventana = customtkinter.CTk()
+ventana.title("Calculatriz")
+#ventana.resizable(width=1,height=1)
+i=0
+#ventana.maxsize(285,300)
+
+
+#Grid.rowconfigure(ventana,0,weight=1)
+#Grid.columnconfigure(ventana,0,weight=1)
+
+#entrada de datos
+dat_in= customtkinter.CTkEntry(master= ventana)
+dat_in.grid(row=0, column=0, columnspan=4,sticky="WE", padx=5, pady=5)
+
+#funciones
+def but_clk(value):
+    global i
+    dat_in.insert(i, value)
+    i+=1
+    
+
+def borrar():
+    dat_in.delete(0, END)
+    i=0
+
+def operacion():
+    try:
+        ecuacion=dat_in.get()
+        result= eval(ecuacion)
+        i=0
+    except ZeroDivisionError:  
+       result= "Math error delete to continue"
+    except ValueError:  
+       result= "Sintaxys error delete to continue"
+    except NameError:  
+       result= "Sintaxys error delete to continue"
+    except SyntaxError:  
+       result= "Sintaxys error delete to continue"
+    finally:
+        dat_in.delete(0,END)
+        dat_in.insert(0,result)
+
+
+#botones 
+bot1= customtkinter.CTkButton(master= ventana, text= "1",  command=lambda: but_clk(1)) 
+bot2= customtkinter.CTkButton(master= ventana, text= "2",  command=lambda: but_clk(2)) 
+bot3= customtkinter.CTkButton(master= ventana, text= "3",  command=lambda: but_clk(3)) 
+bot4= customtkinter.CTkButton(master= ventana, text= "4",  command=lambda: but_clk(4)) 
+bot5= customtkinter.CTkButton(master= ventana, text= "5",  command=lambda: but_clk(5)) 
+bot6= customtkinter.CTkButton(master= ventana, text= "6",  command=lambda: but_clk(6)) 
+bot7= customtkinter.CTkButton(master= ventana, text= "7",  command=lambda: but_clk(7)) 
+bot8= customtkinter.CTkButton(master= ventana, text= "8",  command=lambda: but_clk(8)) 
+bot9= customtkinter.CTkButton(master= ventana, text= "9",  command=lambda: but_clk(9)) 
+bot0= customtkinter.CTkButton(master= ventana, text= "0", width=300,  command=lambda: but_clk(0))
+
+bot_aclr= customtkinter.CTkButton(master= ventana, text=chr(9003),  command=lambda: borrar()) 
+bot_par1= customtkinter.CTkButton(master= ventana, text= "(",  command=lambda: but_clk("(")) 
+bot_par2= customtkinter.CTkButton(master= ventana, text= ")", command=lambda: but_clk(")")) 
+bot_point= customtkinter.CTkButton(master= ventana, text= ".",  command=lambda: but_clk(".")) 
+
+bot_sum= customtkinter.CTkButton(master= ventana, text= "+",  command=lambda: but_clk("+")) 
+bot_res= customtkinter.CTkButton(master= ventana, text= "-",  command=lambda: but_clk("-")) 
+bot_mul= customtkinter.CTkButton(master= ventana, text= "x",  command=lambda: but_clk("*")) 
+bot_div= customtkinter.CTkButton(master= ventana, text= "/",  command=lambda: but_clk("/"))
+bot_ig= customtkinter.CTkButton(master= ventana, text= "=", command=lambda: operacion())  
+
+#interfaz
+
+bot_aclr.grid(row=1, column=2, sticky="", padx=5, pady=5)
+bot_par1.grid(row=1, column=0, padx= 5, pady=5)
+bot_par2.grid(row=1, column=1,sticky="", padx= 5, pady=5)
+bot_div.grid(row=1, column=3,sticky="", padx=5, pady=5)
+
+bot7.grid(row=2, column=0, padx=5, pady=5)
+bot8.grid(row=2, column=1,sticky="", padx=5, pady=5)
+bot9.grid(row=2, column=2,sticky="", padx=5, pady=5)
+bot_mul.grid(row=2, column=3,sticky="", padx=5, pady= 5)
+
+bot4.grid(row=3, column=0, padx=5, pady=5)
+bot5.grid(row=3, column=1,sticky="", padx=5, pady=5)
+bot6.grid(row=3, column=2,sticky="", padx=5, pady=5)
+bot_res.grid(row=3, column=3,sticky="",padx=5,pady=5)
+
+bot1.grid(row=4, column=0, padx=5, pady=5)
+bot2.grid(row=4, column=1,sticky="", padx=5, pady=5)
+bot3.grid(row=4, column=2,sticky="", padx=5, pady=5)
+bot_sum.grid(row=4,column=3,sticky="",padx=5,pady=5)
+
+bot0.grid(row=5, column=0,columnspan=2, padx=5, pady=5)
+bot_point.grid(row=5, column=2,sticky="", padx=5, pady=5)
+bot_ig.grid(row=5, column=3,sticky="", padx=5, pady=5)
+
+
+
+
+ventana.mainloop()
